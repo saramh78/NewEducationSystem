@@ -22,8 +22,15 @@ namespace EducationSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDto>>> GetAllAsync()
+        public async Task<ActionResult<List<CategoryDto>>> GetAllAsync([FromHeader] string termianlId)
         {
+            //     var termainalId = Request.Headers["termianlId"];
+
+            if (string.IsNullOrWhiteSpace(termianlId))
+            {
+                throw new System.Exception("Termainl is null");
+            }
+
             var service = await _categoryService.GetAllAsync();
             return service;
         }
